@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:quote_app_one/ui_screens/HomeScreen.dart';
