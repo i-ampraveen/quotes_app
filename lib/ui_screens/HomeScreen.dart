@@ -5,6 +5,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quote_app_one/components/Buttons.dart';
 import 'package:quote_app_one/components/TextStyles_Icons.dart';
 import 'package:quote_app_one/utils/HexColor.dart';
 
@@ -16,6 +17,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Color _newAppBgColor = HexColor("#111328");
 
+  Color statusColor = Colors.red;
+  String cData = 'Offline';
+
   Map _source = {ConnectivityResult.none: false};
   MyConnectivity _connectivity = MyConnectivity.instance;
 
@@ -24,8 +28,28 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _connectivity.initialise();
     _connectivity.myStream.listen((source) {
-      setState(() => _source = source);
+      setState(() {
+        _source = source;
+        _updateStatusText();
+      });
     });
+  }
+
+  void _updateStatusText(){
+    switch (_source.keys.toList()[0]){
+      case ConnectivityResult.none:
+        cData = "Offline";
+        statusColor = Colors.red;
+        break;
+      case ConnectivityResult.mobile:
+        cData = "Online";
+        statusColor = Colors.green;
+        break;
+      case ConnectivityResult.wifi:
+        cData = "Online";
+        statusColor = Colors.green;
+        break;
+    }
   }
 
   @override
@@ -33,25 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: _newAppBgColor, // navigation bar color
     ));
-    // ScreenUtil.init(
-    //     BoxConstraints(
-    //         maxWidth: MediaQuery.of(context).size.width,
-    //         maxHeight: MediaQuery.of(context).size.height),
-    //     designSize: Size(360, 690),
-    // );
-
-    String string;
-    switch (_source.keys.toList()[0]) {
-      case ConnectivityResult.none:
-        string = "Offline";
-        break;
-      case ConnectivityResult.mobile:
-        string = "Mobile: Online";
-        break;
-      case ConnectivityResult.wifi:
-        string = "WiFi: Online";
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: homeScreenAppBarText,
@@ -77,20 +82,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                     child: cStatusText,
                   ),
-                  Text('$string',
-                  style: TextStyle(
-                    color: Colors.white
-                  ),)
+                  // Text( cData,
+                  //  style: TextStyle(
+                  //    color: statusColor
+                  //  ),
+                  //   )
                   /* Button with rounded edges showing "online" and "offline" status
                   for online bg color of that should be in green and for offline it should be orange/red shade
                   status should get changed according to mobile internet status */
-                  // SButton(
-                  //     btnColor: btnColor,
-                  //     txtColor: txtColor,
-                  //     text: text,
-                  //     width: width,
-                  //     height: height,
-                  //     size: size)
+                  ElevatedButton(
+                    child: Text(cData,
+                    style: TextStyle(
+                      color: statusColor
+                    ),),
+                    style: ElevatedButton.styleFrom(
+                      onSurface: statusColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                      )
+                    )
+                  )
 
                   /* Button to access favourites list */
                 ],
@@ -115,12 +126,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-
-    @override
-    void dispose() {
-      _connectivity.disposeStream();
-      super.dispose();
-    }
   }
   }
 class MyConnectivity {
