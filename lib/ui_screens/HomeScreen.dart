@@ -80,29 +80,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,//.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                     child: cStatusText,
                   ),
                   /* Button with rounded edges showing "online" and "offline" status
                   for online bg color of that should be in green and for offline it should be orange/red shade
                   status should get changed according to mobile internet status */
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 220, 0),
-                    child: ElevatedButton(
-                            child: Text(cData,
-                      style: TextStyle(
-                        color: statusColor
-                      ),),
-                      style: ElevatedButton.styleFrom(
-                        onSurface: statusColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0))
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 0 ,0),
+                        child: sButton(
+                            btnColor: statusColor,
+                            txtColor: statusColor,
+                            text: cData,
                         ),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.padded
-                      )
-                    ),
-                  )
+                      ),
+
 
                   /* Button to access favourites list */
                 ],
