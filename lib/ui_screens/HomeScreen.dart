@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:quote_app_one/components/Buttons.dart';
 import 'package:quote_app_one/components/TextStyles_Icons.dart';
 import 'package:quote_app_one/utils/HexColor.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -76,31 +77,31 @@ class _HomeScreenState extends State<HomeScreen> {
               //width: ,
               //height: ,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,//.spaceBetween,
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                     child: cStatusText,
                   ),
-                  // Text( cData,
-                  //  style: TextStyle(
-                  //    color: statusColor
-                  //  ),
-                  //   )
                   /* Button with rounded edges showing "online" and "offline" status
                   for online bg color of that should be in green and for offline it should be orange/red shade
                   status should get changed according to mobile internet status */
-                  ElevatedButton(
-                    child: Text(cData,
-                    style: TextStyle(
-                      color: statusColor
-                    ),),
-                    style: ElevatedButton.styleFrom(
-                      onSurface: statusColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 220, 0),
+                    child: ElevatedButton(
+                            child: Text(cData,
+                      style: TextStyle(
+                        color: statusColor
+                      ),),
+                      style: ElevatedButton.styleFrom(
+                        onSurface: statusColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0))
+                        ),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.padded
                       )
-                    )
+                    ),
                   )
 
                   /* Button to access favourites list */
