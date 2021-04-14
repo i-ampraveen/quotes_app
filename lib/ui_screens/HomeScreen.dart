@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quote_app_one/components/Buttons.dart';
 import 'package:quote_app_one/components/TextStyles_Icons.dart';
+import 'package:quote_app_one/ui_screens/FavouritesScreen.dart';
 import 'package:quote_app_one/utils/HexColor.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Color _newAppBgColor = HexColor("#111328");
+  Color _btnColor = HexColor("#f1b81c").withOpacity(0.8);
 
   Color statusColor = Colors.red;
   String cData = 'Offline';
@@ -77,26 +79,33 @@ class _HomeScreenState extends State<HomeScreen> {
               //width: ,
               //height: ,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,//.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                    child: cStatusText,
-                  ),
                   /* Button with rounded edges showing "online" and "offline" status
                   for online bg color of that should be in green and for offline it should be orange/red shade
                   status should get changed according to mobile internet status */
                       Padding(
                         padding: EdgeInsets.fromLTRB(10, 10, 0 ,0),
                         child: sButton(
-                            btnColor: statusColor,
+                            surfaceColor: statusColor,
                             txtColor: statusColor,
                             text: cData,
                         ),
                       ),
-
-
                   /* Button to access favourites list */
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                    child: fButton(
+                      btnColor: _btnColor,
+                        txtColor: Colors.black,
+                        text: "Favourites",
+                        callback: () {
+                      debugPrint("button pressed");
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => fqListing()));
+                        }
+                    ),
+                  )
                 ],
               ),
             ),
