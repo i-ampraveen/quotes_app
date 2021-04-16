@@ -82,8 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   /* Button with rounded edges showing "online" and "offline" status
-                  for online bg color of that should be in green and for offline it should be orange/red shade
-                  status should get changed according to mobile internet status */
+                  for online bg color of that will be in green and for offline it will be orange/red shade
+                  status will get changed according to mobile internet status */
                       Padding(
                         padding: EdgeInsets.fromLTRB(10, 10, 0 ,0),
                         child: sButton(
@@ -100,7 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         txtColor: Colors.black,
                         text: "Favourites",
                         callback: () {
-                      debugPrint("button pressed");
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => fqListing()));
                         }
