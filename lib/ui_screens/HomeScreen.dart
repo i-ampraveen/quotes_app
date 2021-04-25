@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Color statusColor = Colors.red;
   String cData = 'Offline';
+
+  final firestoreInstance = FirebaseFirestore.instance;
 
   Map _source = {ConnectivityResult.none: false};
   MyConnectivity _connectivity = MyConnectivity.instance;
@@ -109,6 +112,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             /* 2nd column entry point */
+            Container(
+              child: StreamBuilder(
+                stream: firestoreInstance
+                    .collection("quotes")
+                    .doc("GKZFm9unbgxbpomdNvuV")
+                    .snapshots(),
+                builder: (context, snapshot){
+                  if(!snapshot.hasData){
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  var document = snapshot.data;
+                  return new Text(document["quote-1"]);
+                },
+              )
+            ),
 
             /* api will fetch the quotes, side-by-side scrolling
             * if connection status is offline then some message will be displayed */
